@@ -76,7 +76,7 @@ def AddContact():
         PhoneLabel=Label(root,text="The contact has been added successfully. ",font=('futurist-fixed-width', 10),fg='green',relief='flat',bg='white')
         PhoneLabel.grid(column=1,row=6,padx=0,pady=5,columnspan=3)
     else:
-        PhoneLabel=Label(root,text="The contact can not be added ",font=('futurist-fixed-width', 10),fg='red',relief='flat',bg='white')
+        PhoneLabel=Label(root,text="The contact can not be added.",font=('futurist-fixed-width', 10),fg='red',relief='flat',bg='white')
         PhoneLabel.grid(column=1,row=6,padx=0,pady=5,columnspan=3)
 
 
@@ -139,15 +139,9 @@ def DeleteMSg(event):
     except NameError:
         NONE
 
-    if CountN==0:
+    if NameEntry.get()==' Name ex : Ghassen':
         NameEntry.config(foreground='#343634')
         NameEntry.delete(0,ttk.END)
-        CountN=1
-    if CountN==2:
-        NameEntry.delete(0,ttk.END)
-        NameEntry.config(fg='#343634')
-        CountN=0
-
 
 def ReadKey(Digit):
     global PhoneNumber,PhoneNumberEntry,Count
