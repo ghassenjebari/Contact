@@ -29,6 +29,7 @@ def reset():
 def Check(Name):
     global NameEntry,CountN
     name=''
+    root.focus()
     for c in Name:
         if c.isalpha() or c==" ":
             name=name+c
@@ -49,8 +50,7 @@ def CheckExistance(ch):
         if s!='':
             if ch == s :
              Test=False
-            reset()
-            root.focus()
+
         else:
             break;
     f.close()
@@ -61,17 +61,25 @@ def CheckExistance(ch):
 
 
 def AddContact():
-    global PhoneNumberEntry,NameEntry,PhoneNumber,Name
+    global PhoneNumberEntry,NameEntry,PhoneNumber,Name,PhoneLabel
     Data=open("data.txt","a")
     Name=NameEntry.get()
     try:
         PhoneNumber=int(PhoneNumberEntry.get())
     except ValueError:
         PhoneNumber=0
-    if(PhoneNumber > 0 and Check(Name) and CheckExistance(Name+","+str(PhoneNumber)+'\n')):
+    if(PhoneNumber != 0 and Check(Name) and CheckExistance(Name+","+str(PhoneNumber)+'\n')):
         Data.write(Name+","+str(PhoneNumber)+'\n')
         reset()
         root.focus()
+        PhoneLabel=Label(root,text="The contact has been added successfully. ",font=('futurist-fixed-width', 10),fg='green',relief='flat',bg='white')
+        PhoneLabel.grid(column=1,row=6,padx=0,pady=5,columnspan=3)
+    else:
+        PhoneLabel=Label(root,text="The contact can not be added ",font=('futurist-fixed-width', 10),fg='red',relief='flat',bg='white')
+        PhoneLabel.grid(column=1,row=6,padx=0,pady=5,columnspan=3)
+
+
+
     Data.close()
 
 
@@ -106,7 +114,12 @@ def WriteMSg(event):
 
 
 def DeleteMsg(event):
-    global PhoneNumberEntry
+    global PhoneNumberEntry,LabelEntry,PhoneLabel
+    try:
+        PhoneLabel.grid_forget()
+    except NameError:
+        NONE
+
     global Count
     if Count==0:
         PhoneNumberEntry.config(foreground='#343634')
@@ -119,6 +132,12 @@ def DeleteMsg(event):
 def DeleteMSg(event):
     global NameEntry
     global CountN
+
+    try:
+        PhoneLabel.grid_forget()
+    except NameError:
+        NONE
+
     if CountN==0:
         NameEntry.config(foreground='#343634')
         NameEntry.delete(0,ttk.END)
