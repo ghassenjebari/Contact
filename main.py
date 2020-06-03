@@ -68,6 +68,7 @@ def AddContact():
         PhoneNumber=int(PhoneNumberEntry.get())
     except ValueError:
         PhoneNumber=0
+    root.focus()
     if(PhoneNumber != 0 and Check(Name) and CheckExistance(Name+","+str(PhoneNumber)+'\n')):
         Data.write(Name+","+str(PhoneNumber)+'\n')
         reset()
